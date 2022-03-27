@@ -88,8 +88,8 @@ def main(args):
 
     transform = transforms.Compose(
         [
-            transforms.Resize(args.size),
-            transforms.CenterCrop(args.size),
+            transforms.Resize(256),
+            transforms.CenterCrop(256),
             transforms.ToTensor(),
             transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
         ]

@@ -227,6 +227,16 @@ class VQVAE(nn.Module):
 
         return dec
 
+    @torch.no_grad()
+    def get_codebook_indices(self, img):
+        b = img.shape[0]
+        # img = (2 * img) - 1
+        _, _, _, id_t, id_b = self.encode(img)
+        indices = [ids.view(b, -1) for ids in [id_t, id_b]]
+        indices = torch.cat(indices, 1)
+        return indices
+
+
     def decode_code(self, code_t, code_b):
         quant_t = self.quantize_t.embed_code(code_t)
         quant_t = quant_t.permute(0, 3, 1, 2)
